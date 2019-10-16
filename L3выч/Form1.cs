@@ -14,7 +14,6 @@ namespace L3
     {
         public Form1()
         {
-            //
             InitializeComponent();
             ChartSetup();  
         }
