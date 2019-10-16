@@ -124,9 +124,6 @@
   <data name="white-hexagons-mosaic-3d-render-loopable-animation-4k-uhd-3840x2160_hhutrldf__F0000" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\white-hexagons-mosaic-3d-render-loopable-animation-4k-uhd-3840x2160_hhutrldf__F0000.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="train-crossing-through-railroad-inside-river-wide-77644048" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\train-crossing-through-railroad-inside-river-wide-77644048.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="nastol.com1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nastol.com.ua-1580341.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -142,6 +139,9 @@
   <data name="1Z0rvku06NE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1Z0rvku06NE.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="YYR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\YYR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="imageForSharing" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\imageForSharing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -150,6 +150,9 @@
   </data>
   <data name="depositphotos_43853623-stock-photo-word-cloud-programming-languages-or" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\depositphotos_43853623-stock-photo-word-cloud-programming-languages-or.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="canyon_inside_light_4826_1920x1080" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\canyon_inside_light_4826_1920x1080.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="6HWOxDEjfIQ" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\6HWOxDEjfIQ.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -177,9 +180,6 @@
   </data>
   <data name="2730x1536_px_rain_water_Water_Drops_watercolor-1348913" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2730x1536_px_rain_water_Water_Drops_watercolor-1348913.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="gorod-nyu-york-new-york-ssha-193" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\gorod-nyu-york-new-york-ssha-193.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="hfa8rmvlh8hwnrphgadltgkeyyo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\hfa8rmvlh8hwnrphgadltgkeyyo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -213,6 +213,9 @@
   </data>
   <data name="88" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\88.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="111111" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\111111.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="881" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\881.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -250,8 +253,8 @@
   <data name="wallhaven-2568711" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wallhaven-2568711.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="YYR" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\YYR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="gorod-nyu-york-new-york-ssha-193" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gorod-nyu-york-new-york-ssha-193.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="274608_gallery.world" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\274608_gallery.world.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -286,13 +289,13 @@
   <data name="wp3081815" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\wp3081815.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="canyon_inside_light_4826_1920x1080" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\canyon_inside_light_4826_1920x1080.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="train-crossing-through-railroad-inside-river-wide-77644048" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\train-crossing-through-railroad-inside-river-wide-77644048.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="111" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\111.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="111111" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\111111.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Sylver" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sylver.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using ZedGraph;
-namespace L3
+namespace L6
 {
     public partial class Form1 : Form
     {
@@ -17,8 +17,10 @@ namespace L3
             InitializeComponent();
             ChartSetup();  
         }
-        PointPairList FunctionList1 = new PointPairList();
-        PointPairList FunctionList2 = new PointPairList();
+        //Списки точек для построения графиков
+        PointPairList fp1 = new PointPairList();
+        PointPairList fp2 = new PointPairList();
+        PointPairList fp3 = new PointPairList();
         LineItem curve1;
         GraphPane pane;
         private void ChartSetup()
@@ -41,122 +43,102 @@ namespace L3
             pane.YAxis.Scale.FontSpec.Size = 12;
         }
         //Исходные функции
-        public static double F2(double x, double y)
-        { return ((x * x) / 4 + (y * y) / 9 - 1); }
-        public static double F1(double x, double y)
-        { return (2 * x + 3 * y - 1); }
-        //Вычисление Якобиана
-        public static double Det(double[,] W)
+        double dy1(double y1, double y2, double y3)
+        { return 3 * y1 + y2 + y3; }
+        double dy2(double y1, double y2, double y3)
+        { return - y2 + 3 * y3; }
+        double dy3(double y1, double y2, double y3)
+        { return y1 + 2 * y2 + y3; }
+        //Собственные числа матрицы A
+        double a1 = -1.88, a2 = 4.1, a3 = 0.77564;
+        //Матрицы М1, М2, М3
+        double[,] M2 = new double[3, 3] { { 1.69257, 0.57951, 0.82485 }, { 0.24535, 0.43769 , 0.75715 }, { 0.57951, 0.58655, 1.025 } };
+        double[,] M3 = new double[3, 3] { { 0.08714, -0.39334 , 0.11509 }, { -0.16948, 0.76505, -0.16356 }, { 0.11193, -0.50527, 0.14784 } };
+        double[,] M1 = new double[3, 3] { { -0.11842, 0.30452, 0.55324 }, { -0.08291, 0.21321, 0.38742 }, { -0.19371, 0.49823, 0.90515 } };
+        //Решение методом Лагранжа-Сильвестра
+        double Fu1(double x, double y10, double y20, double y30)
         {
-            double a = W[0, 0] * W[1, 1] - W[0, 1] *  W[1, 0] ;
-            return a;
+            return (M1[0, 0] * y10 + M1[0, 1] * y20 + M1[0, 2] * y30) * Math.Pow(Math.E, (a1 * x)) +
+                   (M2[0, 0] * y10 + M2[0, 1] * y20 + M2[0, 2] * y30) * Math.Pow(Math.E, (a2 * x)) +
+                   (M3[0, 0] * y10 + M3[0, 1] * y20 + M3[0, 2] * y30) * Math.Pow(Math.E, (a3 * x));
         }
-        //Исходные функции в явном виде
-        double Fu1(double x) { return (Math.Sqrt(9 * (1 - (x * x) / 4))); }
-        double Fu2(double x) { return (1 - 2 * x) / 3; }
-        //Функция обработки события нажатия на кнопку "Решить систему и постоить график"
+        double Fu2(double x, double y10, double y20, double y30)
+        {
+            return (M1[1, 0] * y10 + M1[1, 1] * y20 + M1[1, 2] * y30) * Math.Pow(Math.E, (a1 * x)) +
+                   (M2[1, 0] * y10 + M2[1, 1] * y20 + M2[1, 2] * y30) * Math.Pow(Math.E, (a2 * x)) +
+                   (M3[1, 0] * y10 + M3[1, 1] * y20 + M3[1, 2] * y30) * Math.Pow(Math.E, (a3 * x));
+        }
+        double Fu3(double x, double y10, double y20, double y30)
+        {
+            return (M1[2, 0] * y10 + M1[2, 1] * y20 + M1[2, 2] * y30) * Math.Pow(Math.E, (a1 * x)) +
+                   (M2[2, 0] * y10 + M2[2, 1] * y20 + M2[2, 2] * y30) * Math.Pow(Math.E, (a2 * x)) +
+                   (M3[2, 0] * y10 + M3[2, 1] * y20 + M3[2, 2] * y30) * Math.Pow(Math.E, (a3 * x));
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
+
                 //Проверка введенных значений на корректность
-                if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "")
-                { throw new Exception("Три слона зиждят Землю"); }
-                double[] X = new double[2];
-                double x0 = Convert.ToDouble(textBox1.Text);
-                double y0 = Convert.ToDouble(textBox2.Text);
-                double accuracy = Convert.ToDouble(textBox3.Text);
-                if (accuracy < 1E-105 || Math.Abs(accuracy) > Math.Pow(10, 10))
-                { throw new Exception("Такую точность не обеспечит и ворошиловский стрелок"); }
-                double[,] J = new double[2, 2]; //Матрица Якоби 
-                double[,] A = new double[2, 2]; //Матрица алгебраических дополнений
-                double[] B = new double[2]; //Погрешность
-                double[] F = new double[2]; //Столбец значений функций
-                //Начальное приближение
-                X[0] = x0;
-                X[1] = y0;
-                int step = 0;    //Итерационный шаг                
-                double j;   //Определитель Якоби
-                do
+                if (textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox5.Text == "")
+                { throw new Exception("И сколько ни кричи - пустота в пустоту ни о чём."); }
+                double y10 = Convert.ToDouble(textBox1.Text);
+                double y20 = Convert.ToDouble(textBox2.Text);
+                double y30 = Convert.ToDouble(textBox3.Text);
+                double leftx = 0;
+                double rightx = Convert.ToDouble(textBox5.Text);
+                if (leftx > rightx || leftx == rightx) throw new Exception("Я требую не адвоката, но нечто большее чем ноль.");
+                if ((rightx > 170)) { throw new Exception("В правильном месте правильная лужа способна вознести тебя либо уничтожить."); }
+                if ((y10 == 0) && (y20 == 0) && (y30 == 0)) { throw new Exception("Эта дверь ведет в пустую комнату."); }
+                double step = (rightx - leftx) / 100;   //Задается шаг
+                //Очистка списков точек
+                fp1.Clear();
+                fp2.Clear();
+                fp3.Clear();
+                double y11 = 0.0, y21 = 0.0, y31 = 0.0;
+                int i = 0;
+                for (double x = leftx; x <= rightx; x += step)
                 {
-                    //Матрица Якоби
-                    J[1, 0] = 2 * X[0] / 4;
-                    J[1, 1] = 2 * X[1] / 9;
-                    J[0, 0] = 2;
-                    J[0, 1] = 3;
-                    j = Det(J); //Вычисление Якобиана
-                    if (j == 0) //Проверка на ненулевость
-                    { throw new Exception("Здесь нулевой Якобиан. Войди в другую дверь."); }
-                    //Матрица алгебраических дополнений
-                    A[0, 0] = 2 * X[1] / 9;
-                    A[0, 1] = -3;
-                    A[1, 0] = -2 * X[0] / 4;
-                    A[1, 1] = 2;
-                    //Цикл строки матрицы
-                    for (int i = 0; i < 2; i++)
-                    {
-                        //Цикл столбцы матрицы
-                        for (int k = 0; k < 2; k++)
-                        { A[i, k] = A[i, k] / j; }
-                    }
-                    //Столбец значений функций
-                    F[1] = (Math.Pow(X[0], 2)) / 4 + (Math.Pow(X[1], 2)) / 9 - 1;
-                    F[0] = 2 * X[0] + 3 * X[1] - 1;
-                    //Погрешность
-                    for (int h = 0; h < 2; h++)
-                    {
-                        B[h] = 0.0;
-                        for (int b = 0; b < 2; b++)
-                        { B[h] += A[h, b] * F[b]; }
-                    }
-                    //Приближение
-                    for (int d = 0; d < 2; d++)
-                    { X[d] = X[d] - B[d]; }
-                    step++;
-                    if (step > 150) //Ограничение на итерации
-                    { throw new Exception("Итерации ушли туда, где пахнет нефтью"); }
+                    //Вычисление значений функций
+                    y11 = Fu1(x, y10, y20, y30);
+                    y21 = Fu2(x, y10, y20, y30);
+                    y31 = Fu3(x, y10, y20, y30);
+                    //Добавление точек в списки
+                    fp1.Add(x, y11);
+                    fp2.Add(x, y21);
+                    fp3.Add(x, y31);
+                    i++;
                 }
-                //Прекращаем действия, когда будет достигнута желаемая точность
-                while ((Math.Abs(F1(X[0], X[1])) > accuracy) || (Math.Abs(F2(X[0], X[1])) > accuracy));
-                //Выводим найденное решение на экран
-                textBox5.Text = X[0].ToString();
-                textBox4.Text = X[1].ToString();
-                //Вычисление значений функций при найденных значениях переменных и их вывод на экран
-                textBox7.Text = ((X[0] * X[0]) / 4 + (X[1] * X[1]) / 9).ToString();
-                textBox6.Text = (2 * X[0] + 3 * X[1]).ToString();
-                //Очищаем массивы точек
-                FunctionList1.Clear();
-                FunctionList2.Clear();
-                //Настраиваем график
+                //Настройка графика
                 pane = zedGraphControl1.GraphPane;
                 pane.CurveList.Clear();
                 zedGraphControl1.AxisChange();
                 zedGraphControl1.Invalidate();
                 //Настройка панели для построения графика
                 pane = zedGraphControl1.GraphPane;
-                zedGraphControl1.AutoSize = true;
+                zedGraphControl1.AutoSize = false;
+                pane.XAxis.Scale.MaxAuto = true;
+                pane.XAxis.Scale.MinAuto = true;
+                pane.YAxis.Scale.MaxAuto = true;
+                pane.YAxis.Scale.MinAuto = true;
                 //Установка масштаба 
-                pane.XAxis.Scale.Min = -4;
-                pane.XAxis.Scale.Max = 4;
+                pane.XAxis.Scale.Min = leftx;
+                pane.XAxis.Scale.Max = rightx;
                 pane.XAxis.Scale.Format = "F2";
                 pane.XAxis.Scale.FontSpec.Size = 12;
                 pane.YAxis.Scale.FontSpec.Size = 12;
-                //Очищение списка кривых
-                pane.CurveList.Clear();
+                pane.CurveList.Clear(); //Очистка списка кривых
                 pane.Title.Text = "Графики функций";
                 pane.XAxis.Title.Text = pane.XAxis.Title.Text = "Ось X";
                 pane.YAxis.Title.Text = pane.YAxis.Title.Text = "Ось Y";
-                double x;
-                for (x = -2; x < 2; x += 0.001)
-                { FunctionList1.Add(x, Fu1(x)); }
-                for (x = -2.001; x < 2; x += 0.001)
-                { FunctionList1.Add(x, -Fu1(x)); }
-                for (x = -4; x < 4; x += 0.001)
-                { FunctionList2.Add(x, Fu2(x)); }
-                Draw1(FunctionList1);
-                Draw2(FunctionList2);
+                //Построение графиков функций
+                Draw1(fp1);
+                Draw2(fp2);
+                Draw3(fp3);
             }
+            catch (FormatException) { MessageBox.Show("Наверное, это эльфийский"); }
             catch (ArgumentOutOfRangeException) { MessageBox.Show("Император Рима Римом ограничен."); }
+            catch (OverflowException) { MessageBox.Show("Император Рима Римом ограничен."); }
             catch (Exception ea) { MessageBox.Show(ea.Message); }
         }
         //Построение графика первой функции
@@ -194,50 +176,67 @@ namespace L3
             //Обработка исключений
             catch (Exception m) { MessageBox.Show(m.Message); }
         }
+        //Построение графика второй функции
+        private void Draw3(PointPairList list)
+        {
+            //Сортировка массива точек
+            list.TrimExcess();
+            list.Sort();
+            try
+            {
+                //Построение графика функции
+                curve1 = pane.AddCurve("функция 3", list, Color.DeepPink, SymbolType.None);
+                curve1.Line.Width = 2;  //ширина линии
+                //Обновление данных
+                zedGraphControl1.AxisChange();
+                zedGraphControl1.Invalidate();
+            }
+            //Обработка исключений
+            catch (Exception m) { MessageBox.Show(m.Message); }
+        }
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!((e.KeyChar >= '0') && (e.KeyChar <= '9') || (e.KeyChar == (char)8) || (e.KeyChar == '-') || (e.KeyChar == '.')))
             { e.Handled = true; }
             if ((e.KeyChar == '.'))
-            {
-                if ((textBox1.Text.IndexOf('.') != (-1)))
-                    e.Handled = true;
-            }
+            { if ((textBox1.Text.IndexOf('.') != (-1)))
+              e.Handled = true; }
             if (textBox1.Text.Length == 0)
-            {
-                if (e.KeyChar == '.')
-                    e.Handled = true;
-            }
+            { if (e.KeyChar == '.')
+              e.Handled = true; }
         }
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!((e.KeyChar >= '0') && (e.KeyChar <= '9') || (e.KeyChar == (char)8) || (e.KeyChar == '-') || (e.KeyChar == '.')))
             { e.Handled = true; }
             if ((e.KeyChar == '.'))
-            {
-                if ((textBox2.Text.IndexOf('.') != (-1)))
-                    e.Handled = true;
-            }
+            { if ((textBox2.Text.IndexOf('.') != (-1)))
+              e.Handled = true; }
             if (textBox2.Text.Length == 0)
-            {
-                if (e.KeyChar == '.')
-                    e.Handled = true;
-            }
+            { if (e.KeyChar == '.')
+              e.Handled = true; }
         }
         private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!((e.KeyChar >= '0') && (e.KeyChar <= '9') || (e.KeyChar == (char)8) || (e.KeyChar == '-') || (e.KeyChar == '.')))
+            { e.Handled = true; }
+            if ((e.KeyChar == '.'))
+            { if ((textBox3.Text.IndexOf('.') != (-1)))
+              e.Handled = true; }
+            if (textBox3.Text.Length == 0)
+            { if (e.KeyChar == '.')
+              e.Handled = true; }
+        }
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!((e.KeyChar >= '0') && (e.KeyChar <= '9') || (e.KeyChar == (char)8) || (e.KeyChar == '.')))
             { e.Handled = true; }
             if ((e.KeyChar == '.'))
-            {
-                if ((textBox3.Text.IndexOf('.') != (-1)))
-                    e.Handled = true;
-            }
-            if (textBox3.Text.Length == 0)
-            {
-                if (e.KeyChar == '.')
-                    e.Handled = true;
-            }
-        }      
+            { if ((textBox5.Text.IndexOf('.') != (-1)))
+              e.Handled = true; }
+            if (textBox5.Text.Length == 0)
+            { if (e.KeyChar == '.')
+              e.Handled = true; }
+        }
     }
 }
